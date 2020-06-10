@@ -1,6 +1,6 @@
-#ArrestDB
+#ArrestDBSuite
 
-ArrestDB is a "plug-n-play" RESTful API for SQLite, MySQL and PostgreSQL databases.
+ArrestDB is a "plug-n-play" RESTful API for SQLite, MySQL and PostgreSQL databases with a Vanilla JS library to easy interact with it from http pages.
 
 ArrestDB provides a REST API that maps directly to your database stucture with no configuation.
 
