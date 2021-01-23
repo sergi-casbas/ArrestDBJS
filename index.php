@@ -9,6 +9,8 @@ $clients = [];
 *
 * ArrestDB 1.9.0 (github.com/alixaxel/ArrestDB/)
 * Copyright (c) 2014 Alix Axel <alix.axel@gmail.com>
+*
+* Autentication and multiplexing by sergi.casbas
 **/
 
 if (strcmp(PHP_SAPI, 'cli') === 0)
@@ -16,6 +18,9 @@ if (strcmp(PHP_SAPI, 'cli') === 0)
 	exit('ArrestDB should not be run from CLI.' . PHP_EOL);
 }
 
+# By Sergi Casbas 2021.
+include_once 'module/multiplexing.php'; # Add the abilty to work with multiple databases and connectors.
+include_once 'module/authentication.php'; # Add autentication and stateless session management.
 if ((empty($clients) !== true) && (in_array($_SERVER['REMOTE_ADDR'], (array) $clients) !== true))
 {
 	exit(ArrestDB::Reply(ArrestDB::$HTTP[403]));
