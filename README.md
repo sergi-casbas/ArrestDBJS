@@ -117,6 +117,10 @@ Since 1.5.0, it's also possible to atomically `INSERT` a batch of records by POS
 
 Since 2.0.0 it's possible to acces more than one database using the same server installation. 
 
+On each request a database header must be sent with the name of the folder created on ../databases
+
+Note that to use it the server must point to htdocs and not directly to the source to allow to store sqlite
+or any other monolythic database type in this folder.
 
 ##Autentication and authorization
 
