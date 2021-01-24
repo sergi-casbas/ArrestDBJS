@@ -2,6 +2,8 @@
 
 $dsn = '';
 $clients = [];
+$api_key = '';
+$CORS_Origin = '';
 
 /**
 * The MIT License
