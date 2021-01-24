@@ -1,10 +1,12 @@
-#ArrestDBSuite
+#PHPDBAPI Suite
 
-ArrestDB is a "plug-n-play" RESTful API for SQLite, MySQL and PostgreSQL databases with a Vanilla JS library to easy interact with it from http pages.
+PHPDBAPI is a "plug-n-play" RESTful API for SQLite, MySQL and PostgreSQL databases with a Vanilla JS library to easy interact with it from http pages.
 
-ArrestDB provides a REST API that maps directly to your database stucture with no configuation.
+This is based on ArrestDB by alixaxel (https://github.com/alixaxel/ArrestDB).
 
-Lets suppose you have set up ArrestDB at `http://api.example.com/` and that your database has a table named `customers`.
+PHPDBAPI provides a REST API that maps directly to your database stucture with no configuation.
+
+Lets suppose you have set up PHPDBAPI at `http://api.example.com/` and that your database has a table named `customers`.
 To get a list of all the customers in the table you would simply need to do:
 
 	GET http://api.example.com/customers/
@@ -20,7 +22,7 @@ Or, if you only want to get one customer, then you would append the customer `id
 - PHP 5.4+ & PDO
 - SQLite / MySQL / PostgreSQL
 
-##Installation
+##Installation (single database)
 
 Edit `index.php` and change the `$dsn` variable located at the top, here are some examples:
 
@@ -64,7 +66,7 @@ The actual API design is very straightforward and follows the design patterns of
 	(U)pdate > PUT    /table/id
 	(D)elete > DELETE /table/id
 
-To put this into practice below are some example of how you would use the ArrestDB API:
+To put this into practice below are some example of how you would use the PHPDBAPI API:
 
 	# Get all rows from the "customers" table
 	GET http://api.example.com/customers/
@@ -110,6 +112,28 @@ If your client does not support certain methods, you can use the `X-HTTP-Method-
 Alternatively, you can also override the HTTP method by using the `_method` query string parameter.
 
 Since 1.5.0, it's also possible to atomically `INSERT` a batch of records by POSTing an array of arrays.
+
+##Multiplexing (Multiple databases)
+
+Since 2.0.0 it's possible to acces more than one database using the same server installation. 
+
+
+##Autentication and authorization
+
+Since 2.0.0 it's possible to use autentication and authorization bearers to be sure that the access to your 
+database is only done by a trusted source. The used tokens are stateless and don't require to be stored on 
+anywhere.
+
+To use it fill the variable $api_key (directly on index.php or in a multiplexing config file) with the secret
+to exchange with your client. 
+
+The autentication workflow is:
+- Client send Apikey header with the $api_key config value.
+- If is correct, Server Send a header with "Bearer tokenxxxxxxx".
+- During the lifecycle (1h by default) of the token no need to send Apikey again is required.
+- If a 'Authorization: autentication fail' header is recivied means error during autentication.
+- If a 'Authorization: invalid' header is recived means invalid or inexistent token.
+
 
 ##Responses
 
@@ -190,6 +214,7 @@ Ajax-like requests will be minified, whereas normal browser requests will be hum
 
 ##Changelog
 
+- **2.0.0** ~~added multiplexing and autentication.
 - **1.2.0** ~~support for JSON payloads in `POST` and `PUT` (optionally gzipped)~~
 - **1.3.0** ~~support for JSON-P responses~~
 - **1.4.0** ~~support for HTTP method overrides using the `X-HTTP-Method-Override` header~~
@@ -201,7 +226,7 @@ Ajax-like requests will be minified, whereas normal browser requests will be hum
 
 ##Credits
 
-ArrestDB is a complete rewrite of [Arrest-MySQL](https://github.com/gilbitron/Arrest-MySQL) with several optimizations and additional features.
+PHPDBAPI is a complete rewrite of [Arrest-MySQL](https://github.com/gilbitron/Arrest-MySQL) with several optimizations and additional features.
 
 ##License (MIT)
 
