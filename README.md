@@ -2,7 +2,29 @@
 
 PHPDBAPI is a "plug-n-play" RESTful API for SQLite, MySQL and PostgreSQL databases with a Vanilla JS library to easy interact with it from http pages.
 
-This is based on ArrestDB by alixaxel (https://github.com/alixaxel/ArrestDB).
+##JS Library
+With this library you don't neet do deal directly with the API to use it in your web pages. The library maps all internall functions and parameters to do with a single function call all required operations (prepare data, send http, manage errors, and handle asyncronous function calls).
+
+The library supports both multiplexing and autentication, wich makes your connections more secure and flexible over internet.
+
+Library API mapped available functions:
+· create.
+· read.
+· readAll.
+· update.
+· delete:
+
+Multiplexing functions:
+· openDatabase
+· closeDatabase
+
+Autentication functions:
+· autenticate
+· deautenticate
+· keepAlive
+
+##PHPAPI
+The This is based on ArrestDB by alixaxel (https://github.com/alixaxel/ArrestDB). 
 
 PHPDBAPI provides a REST API that maps directly to your database stucture with no configuation.
 
