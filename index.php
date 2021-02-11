@@ -21,6 +21,7 @@ if (strcmp(PHP_SAPI, 'cli') === 0)
 }
 
 # By Sergi Casbas 2021.
+include_once 'module/cors.php'; # Add the abilty to work with multiple databases and connectors.
 include_once 'module/multiplexing.php'; # Add the abilty to work with multiple databases and connectors.
 include_once 'module/authentication.php'; # Add autentication and stateless session management.
 if ((empty($clients) !== true) && (in_array($_SERVER['REMOTE_ADDR'], (array) $clients) !== true))
