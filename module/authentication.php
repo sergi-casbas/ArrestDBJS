@@ -2,14 +2,28 @@
    
 # Set CORS headers if $CORS_Origin variable is set.
 if ( $CORS_Origin != '' )
+include_once 'totp.php';
+
+function generate_auth_key($key, $ttl, $iterations)
 {
     header("Access-Control-Allow-Origin: ".$CORS_Origin);
+    $buffer = '';
+    for ( $i = 1; $i<=$iterations; $i++)
+        {$buffer = $buffer.dechex(generate_totp($key.$i, 'sha1', 10, $ttl));}
+    return $buffer;
 }
 
 # If api_key variable is not set, don't use autentication or authorization 
 # for backward compatibility.
 if ( $api_key != '' )
+# Function to validate if a bearer is correct or not (if not exists is wrong).
+function authorization_bearer_is_valid($headers, $bearer)
 {
+    # Split authorization header by the first space.
+    $authorization = explode(" ",$headers['Authorization'], 2);
+    
+    # Only bearer type is allowed.
+    if (strtolower($authorization[0]) != 'bearer') {return false;}
 
     # General prerequisites and constants.
     include_once "library/authentication.php";
@@ -41,5 +55,8 @@ if ( $api_key != '' )
 
     # Always update current bearer on correct answers.
     header('Authorization: Bearer '.$current_bearer);
+    # Return if authorization bearer supplied is equal to the computed bearer.
+    return $authorization[1] == $bearer;
 }
+
 ?>
