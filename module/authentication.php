@@ -1,12 +1,8 @@
 <?php
-   
-# Set CORS headers if $CORS_Origin variable is set.
-if ( $CORS_Origin != '' )
 include_once 'totp.php';
 
 function generate_auth_key($key, $ttl, $iterations)
 {
-    header("Access-Control-Allow-Origin: ".$CORS_Origin);
     $buffer = '';
     for ( $i = 1; $i<=$iterations; $i++)
         {$buffer = $buffer.dechex(generate_totp($key.$i, 'sha1', 10, $ttl));}
