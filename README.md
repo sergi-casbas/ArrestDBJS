@@ -8,20 +8,20 @@ With this library you don't neet do deal directly with the API to use it in your
 The library supports both multiplexing and autentication, wich makes your connections more secure and flexible over internet.
 
 Library API mapped available functions:
-· create(serverURL, tableName, itemJSON, successFunction, failFunction)
-· read(serverURL, tableName, itemId, successFunction, failFunction)
-· readAll(serverURL, tableName, successFunction, failFunction)
-· update(serverURL, tableName, itemId, itemJSON, successFunction, failFunction)
-· remove(serverURL, tableName, itemId, successFunction, failFunction)
+* create(serverURL, tableName, itemJSON, successFunction, failFunction)
+* read(serverURL, tableName, itemId, successFunction, failFunction)
+* readAll(serverURL, tableName, successFunction, failFunction)
+* update(serverURL, tableName, itemId, itemJSON, successFunction, failFunction)
+* remove(serverURL, tableName, itemId, successFunction, failFunction)
 
 Multiplexing functions:
-· openDatabase(databaseName)
-· closeDatabase()
+* openDatabase(databaseName)
+* closeDatabase()
 
 Autentication functions:
-· autenticate(serverURL, method, apikey, successFunction, failFunction)
-· deautenticate()
-· keepAlive(successFunction, failFunction)
+* autenticate(serverURL, method, apikey, successFunction, failFunction)
+* deautenticate()
+* keepAlive(successFunction, failFunction)
 
 
 ## PHPAPI
