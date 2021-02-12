@@ -11,11 +11,11 @@ function include(scriptPath){
    Is recommended to use your own function on function call.
    Use null if you don't want any return of the call.
  */
-function defaultSuccessFunction(response){
+function defaultOnSuccess(response){
     console.debug("OK");
 }
-function defaultFailFunction(response){
-    console.debug("KO\n"+JSON.stringify(response.JSON, null, 4));
+function defaultOnError(response){
+    console.log("KO\n"+JSON.stringify(response.JSON, null, 4));
 }
 
 /* API  functions
@@ -25,23 +25,23 @@ function defaultFailFunction(response){
 (U)pdate > PUT    /table/id
 (D)elete > DELETE /table/id
 */
-function create(serverURL, tableName, itemJSON, successFunction=defaultSuccessFunction, failFunction=defaultFailFunction){
-    httpRequest(serverURL + "/" + tableName , 'POST', successFunction, failFunction, itemJSON);
+function create(serverURL, tableName, itemJSON, onSuccess=defaultOnSuccess, onError=defaultOnError){
+    httpRequest(serverURL + "/" + tableName , 'POST', onSuccess, onError, itemJSON);
 }
 
-function read(serverURL, tableName, itemId, successFunction=defaultSuccessFunction, failFunction=defaultFailFunction){
-	httpRequest(serverURL + "/" + tableName + "/" + itemId, 'GET', successFunction, failFunction);
+function read(serverURL, tableName, itemId, onSuccess=defaultOnSuccess, onError=defaultOnError){
+	httpRequest(serverURL + "/" + tableName + "/" + itemId, 'GET', onSuccess, onError);
 }
 
-function readAll(serverURL, tableName, successFunction=defaultSuccessFunction, failFunction=defaultFailFunction){
-	httpRequest(serverURL+"/"+tableName, 'GET', successFunction, failFunction);
+function readAll(serverURL, tableName, onSuccess=defaultOnSuccess, onError=defaultOnError){
+	httpRequest(serverURL+"/"+tableName, 'GET', onSuccess, onError);
 }
 
-function update(serverURL, tableName, itemId, itemJSON, successFunction=defaultSuccessFunction, failFunction=defaultFailFunction){
-    httpRequest(serverURL + "/" + tableName + "/" + itemId, 'PUT', successFunction, failFunction, itemJSON);
+function update(serverURL, tableName, itemId, itemJSON, onSuccess=defaultOnSuccess, onError=defaultOnError){
+    httpRequest(serverURL + "/" + tableName + "/" + itemId, 'PUT', onSuccess, onError, itemJSON);
 }
 
-function remove(serverURL, tableName, itemId, successFunction=defaultSuccessFunction, failFunction=defaultFailFunction){
-    httpRequest(serverURL + "/" + tableName + "/" + itemId, 'DELETE', successFunction, failFunction);
+function remove(serverURL, tableName, itemId, onSuccess=defaultOnSuccess, onError=defaultOnError){
+    httpRequest(serverURL + "/" + tableName + "/" + itemId, 'DELETE', onSuccess, onError);
 }
 
