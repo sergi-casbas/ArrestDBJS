@@ -12,10 +12,12 @@ function include(scriptPath){
    Use null if you don't want any return of the call.
  */
 function defaultOnSuccess(response){
-    console.debug("OK");
+    defaultOnError(response);
 }
 function defaultOnError(response){
-    console.log("KO\n"+JSON.stringify(response.JSON, null, 4));
+    console.log('x-auth-message: ' + response.getResponseHeader('x-auth-message'));
+    console.table(response.JSON);
+    
 }
 
 /* API  functions
