@@ -1,4 +1,4 @@
-function httpRequest(url, operation, onSuccess = null, onError = null, objectJSON = null){
+function httpRequest(url, operation, onSuccess = null, onError = null, objectJSON = null, authorization = null){
 	/* Prepare all request values, fallback, etc.. */
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = onReadyStateChange;
@@ -10,11 +10,9 @@ function httpRequest(url, operation, onSuccess = null, onError = null, objectJSO
 	/* Prepare asyncronous connection. */
 	xhttp.open(operation, url, true);
 
-	/* Automate autentication / authorization headers sent (managed through cookies). */
-	if (existsCookie('Apikey')){ // Apikey have exclusive priority than authorization.
-		xhttp.setRequestHeader("Apikey", getCookie('Apikey'));
-	}else if(existsCookie('Authorization')){
-		xhttp.setRequestHeader("Authorization", getCookie('Authorization'));
+	/* send authorization */
+	if (authorization !== null){
+		xhttp.setRequestHeader("Authorization", "Bearer ".concat(authorization));
 	}
 
 	/* Automate the use of database multiplexing. */
@@ -32,29 +30,13 @@ function httpRequest(url, operation, onSuccess = null, onError = null, objectJSO
 }
 
 function onReadyStateChange(){
-	/* https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState
-	Value	State	Description
-	0	UNSENT	Client has been created. open() not called yet.
-	1	OPENED	open() has been called.
-	2	HEADERS_RECEIVED	send() has been called, and headers and status are available.
-	3	LOADING	Downloading; responseText holds partial data.
-	4	DONE	The operation is complete.
-	*/
-	if (this.readyState == 2){ //HEADERS_RECEIVED
-		if (this.getResponseHeader('Authorization')){
-			authHeader = this.getResponseHeader('Authorization');
-			if (authHeader.substr(0, 6) == 'Bearer'){	
-				setCookie('Authorization', authHeader) ;
-			}else{
-				delCookie('Authorization');
-			}
-		}
-	}else if (this.readyState == 4){ //DONE
-		if (this.status != 200)		{
+	/* https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/readyState */
+	if (this.readyState == 4) { //DONE
+		if (this.status != 200) {
 			/* If the connection is ready but not 200, return as error (this behaviour is unexpected). */
 			if (this.onError != null) {this.onError(this);}
 		}else{
-			this.JSON = JSON.parse(this.response);
+			this.JSON = JSON.parse(this.response); // Convert response to JSON.
 			if ('error' in this.JSON){
 				/*If the response contain error, put on variables and return as error.*/
 				this.HTTPStatus = this.JSON['error']['code'];
