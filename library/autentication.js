@@ -8,3 +8,6 @@ function deautenticate(onSuccess=defaultOnSuccess, onError=defaultOnError){
 	httpRequest(serverURL+"/", 'GET', onSuccess, onError, null, "");
 }
 
+function keepAlive(onSuccess=defaultOnSuccess, onError=defaultOnError){
+	httpRequest(serverURL+"/", 'GET', onSuccess, onError);
+}

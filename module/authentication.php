@@ -25,6 +25,12 @@ if ( $api_key != '' )
             }
         }else{
             header('x-auth-message: in session');
+            # if url is empty, is a keep alive message return 200.
+            if ( $_SERVER['REQUEST_URI']=="/" ){
+                exit(ArrestDB::Reply(ArrestDB::$HTTP[200]));
+            }
+
+
         }
     }else{ # If is not authorized validate authorization header.
         # An empty Authorization header means close session.
