@@ -3,7 +3,6 @@
 if ( $api_key != '' )
 {
     # Manage sessions through PHP session management.
-    ini_set("session.cookie_lifetime","120"); //DEBUG MODE
     session_start();
 
     # Split authorization header by the first space.
