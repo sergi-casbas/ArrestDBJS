@@ -15,9 +15,8 @@ function defaultOnSuccess(response){
     defaultOnError(response);
 }
 function defaultOnError(response){
-    console.log('x-auth-message: ' + response.getResponseHeader('x-auth-message'));
     console.table(response.JSON);
-    
+    console.log('x-auth-message: ' + response.getResponseHeader('x-auth-message'));
 }
 
 /* API  functions
